@@ -1,10 +1,16 @@
-// Menu mobile toggle
+// Menu mobile toggle avec accessibilité
 const navToggle = document.querySelector('.nav-toggle');
 const navList = document.querySelector('.nav-list');
 
 navToggle.addEventListener('click', () => {
   navList.classList.toggle('nav-list--visible');
   navToggle.classList.toggle('nav-toggle--open');
+
+  
+
+  // Mise à jour d'aria-expanded
+  const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
+  navToggle.setAttribute('aria-expanded', !isExpanded);
 });
 
 // Formulaire contact
@@ -15,7 +21,6 @@ if (form) {
   form.addEventListener('submit', function(e) {
     e.preventDefault();
 
-    // validation simple
     const name = form.name.value.trim();
     const email = form.email.value.trim();
     const message = form.message.value.trim();
@@ -24,20 +29,19 @@ if (form) {
       alert('Merci de remplir tous les champs.');
       return;
     }
-    
 
-    // validation email basique
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       alert('Veuillez entrer une adresse email valide.');
       return;
     }
 
-    // Simuler envoi du formulaire (ex: via fetch)
-    // Ici juste confirmation visuelle
+    // Simuler l’envoi du formulaire
     form.style.display = 'none';
     formMessage.style.display = 'block';
+    form.reset();
   });
-
-  
 }
+
+
+
